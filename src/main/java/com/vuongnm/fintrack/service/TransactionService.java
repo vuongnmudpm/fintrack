@@ -4,6 +4,7 @@ import com.vuongnm.fintrack.entity.Transaction;
 import com.vuongnm.fintrack.repository.TransactionRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -13,6 +14,10 @@ import java.util.List;
 @AllArgsConstructor
 public class TransactionService {
     private final TransactionRepository transactionRepository;
+
+    public TransactionService(TransactionRepository transactionRepository) {
+        this.transactionRepository = transactionRepository;
+    }
 
     //add new transaction
     public Transaction createTransaction(Transaction transaction) {

@@ -1,6 +1,7 @@
 package com.vuongnm.fintrack.controller;
 
 import com.vuongnm.fintrack.service.UserService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -16,6 +17,10 @@ import com.vuongnm.fintrack.entity.User;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     //GET/users/me
     @GetMapping("/me")
