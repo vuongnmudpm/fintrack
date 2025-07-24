@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -59,6 +60,14 @@ public class TransactionService {
         transactionRepository.deleteById(id);
     }
 
+    public List<Transaction> getAllTransaction() {
+        return transactionRepository.findAll();
+    }
+    
+    public Transaction getTransactionById(Integer id) {
+        return transactionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Transaction not found with id: " + id));
+    }
 
     //tong thu chi theo user
 
