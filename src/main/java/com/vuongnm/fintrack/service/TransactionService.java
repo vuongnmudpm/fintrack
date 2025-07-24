@@ -4,12 +4,10 @@ import com.vuongnm.fintrack.entity.Transaction;
 import com.vuongnm.fintrack.repository.TransactionRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -53,11 +51,12 @@ public class TransactionService {
     }
 
     //delete transaction
-    public void deleteTransaction(Integer id) {
+    public boolean deleteTransaction(Integer id) {
         if (transactionRepository.findById(id).isEmpty()) {
             throw new EntityNotFoundException("Transaction not exist!");
         }
         transactionRepository.deleteById(id);
+        return false;
     }
 
     public List<Transaction> getAllTransaction() {
