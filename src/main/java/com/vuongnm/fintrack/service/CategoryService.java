@@ -1,6 +1,6 @@
 package com.vuongnm.fintrack.service;
 
-import com.vuongnm.fintrack.entity.Categories;
+import com.vuongnm.fintrack.entity.Category;
 import com.vuongnm.fintrack.repository.CategoryRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -15,32 +15,37 @@ public class CategoryService {
     private final CategoryRepository categoryRepository;
 
     //Creta new cat egory
-    public Categories createCategory(Categories categories) {
-        Optional<Categories> optionalCategories = categoryRepository.findById(categories.getCategory_id());
+    public Category createCategory(Category category) {
+        Optional<Category> optionalCategories = categoryRepository.findById(category.getCategory_id());
         if(optionalCategories.isEmpty()) {
             throw new RuntimeException("Category not found");
         }
-        return categoryRepository.save(categories);
+        return categoryRepository.save(category);
     }
 
     //Get all categories (system + user)
-    public List<Categories> getAllCategories() {
+    public List<Category> getAllCategories() {
         return categoryRepository.findByUserIdOrIsSystemTrue();
     }
 
     //Get categories by system
-    public List<Categories> getSystemCategories() {
+    public List<Category> getSystemCategories() {
         return categoryRepository.findByIsSystemTrue();
     }
 
-    //Get categories by user
-    public List<Categories> getCategorieUser(Integer userId) {
+    //Get category by user
+    public List<Category> getCategoriesByUser(Integer userId) {
         return categoryRepository.findByUserId(userId);
     }
 
+    //Get category by category id
+    public Category getCategoryById(Integer id) {
+        return categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Category not found with id: " + id));
+    }
+
     //Update categories by user
-    public Categories updateCategories(Integer id, Categories categories, Integer userId) {
-        Categories category = categoryRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Category not exist!"));
+    public Category updateCategories(Integer id, Category categories, Integer userId) {
+        Category category = categoryRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Category not exist!"));
 
         category.setName(categories.getName());
         category.setType(categories.getType());
@@ -49,8 +54,8 @@ public class CategoryService {
     }
 
     //Delete categories by user
-    public void deleteCategories(Integer id, Integer userId) {
-        Categories category = categoryRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Category not exist"));
+    public void deleteCategory(Integer id, Integer userId) {
+        Category category = categoryRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Category not exist"));
         categoryRepository.deleteById(id);
     }
 }

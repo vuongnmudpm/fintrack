@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "categories")
 @Data
-public class Categories implements Serializable {
+public class Category implements Serializable {
     @Id
     private int category_id;
     private String name;

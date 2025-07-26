@@ -1,14 +1,14 @@
 package com.vuongnm.fintrack.repository;
 
-import com.vuongnm.fintrack.entity.Categories;
+import com.vuongnm.fintrack.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface CategoryRepository extends JpaRepository<Categories, Integer> {
-    public List<Categories> findByUserId(Integer userId);
-    public List<Categories> findByIsSystemTrue();
-    public List<Categories> findByUserIdOrIsSystemTrue();
+public interface CategoryRepository extends JpaRepository<Category, Integer> {
+    public List<Category> findByUserId(Integer userId);
+    public List<Category> findByIsSystemTrue();
+    public List<Category> findByUserIdOrIsSystemTrue();
 }

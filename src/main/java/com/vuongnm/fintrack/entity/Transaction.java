@@ -28,7 +28,7 @@ public class Transaction implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
-    private Categories category;
+    private Category category;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
