@@ -28,8 +28,13 @@ public class CategoryController {
         return ResponseEntity.ok(categoryService.getCategoryById(id));
     }
 
-    //create category
+    //create a category
     public ResponseEntity<Category> createCategory(@RequestBody Category category) {
         return ResponseEntity.ok(categoryService.createCategory(category));
+    }
+
+    //update a category
+    public ResponseEntity<Category> updateCategory(@PathVariable Integer categoryId, @PathVariable Integer userId, @RequestBody Category category) {
+        return ResponseEntity.ok(categoryService.updateCategories(categoryId, category, userId));
     }
 }
