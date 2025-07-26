@@ -16,4 +16,14 @@ public class ReminderService {
     public List<Reminder> getAllReminders() {
         return reminderRepository.findAll();
     }
+
+    //get a reminder by id
+    public Reminder getReminder(Integer reminderId) {
+        return reminderRepository.findById(reminderId).orElseThrow(()->new RuntimeException("Reminder not found with " + reminderId));
+    }
+
+    //create a reminder
+    public Reminder createReminder(Reminder reminder) {
+        return reminderRepository.save(reminder);
+    }
 }
