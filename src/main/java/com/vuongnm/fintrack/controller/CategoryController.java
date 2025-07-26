@@ -37,4 +37,13 @@ public class CategoryController {
     public ResponseEntity<Category> updateCategory(@PathVariable Integer categoryId, @PathVariable Integer userId, @RequestBody Category category) {
         return ResponseEntity.ok(categoryService.updateCategories(categoryId, category, userId));
     }
+
+    public ResponseEntity<Void> deleteCategory(@PathVariable Integer categoryId, @PathVariable Integer userId) {
+        boolean deleted = categoryService.deleteCategory(categoryId, userId);
+        if (deleted) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

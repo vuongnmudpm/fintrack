@@ -17,7 +17,7 @@ public class CategoryService {
     //Creta new cat egory
     public Category createCategory(Category category) {
         Optional<Category> optionalCategories = categoryRepository.findById(category.getCategory_id());
-        if(optionalCategories.isEmpty()) {
+        if (optionalCategories.isEmpty()) {
             throw new RuntimeException("Category not found");
         }
         return categoryRepository.save(category);
@@ -45,7 +45,7 @@ public class CategoryService {
 
     //Update categories by user
     public Category updateCategories(Integer id, Category categories, Integer userId) {
-        Category category = categoryRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Category not exist!"));
+        Category category = categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Category not exist!"));
 
         category.setName(categories.getName());
         category.setType(categories.getType());
@@ -54,8 +54,13 @@ public class CategoryService {
     }
 
     //Delete categories by user
-    public void deleteCategory(Integer id, Integer userId) {
-        Category category = categoryRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Category not exist"));
+    public boolean deleteCategory(Integer id, Integer userId) {
+        Category category = categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Category not exist"));
         categoryRepository.deleteById(id);
+        if (categoryRepository.findById(id).isEmpty()) {
+            throw new EntityNotFoundException("Category not exist!");
+        }
+        categoryRepository.deleteById(id);
+        return false;
     }
 }
