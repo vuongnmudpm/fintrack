@@ -4,19 +4,16 @@ import com.vuongnm.fintrack.entity.Transaction;
 import com.vuongnm.fintrack.repository.TransactionRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class TransactionService {
     private final TransactionRepository transactionRepository;
-
-    public TransactionService(TransactionRepository transactionRepository) {
-        this.transactionRepository = transactionRepository;
-    }
 
     //add new transaction
     public Transaction createTransaction(Transaction transaction) {
@@ -24,7 +21,7 @@ public class TransactionService {
         return transactionRepository.save(transaction);
     }
 
-    //get all transaction by user
+    //get all transactions by user
     public List<Transaction> getAllTransactionByUser(Integer userId) {
         return transactionRepository.findByUserId(userId);
     }
@@ -59,15 +56,14 @@ public class TransactionService {
         return false;
     }
 
+    //get add transactions
     public List<Transaction> getAllTransaction() {
         return transactionRepository.findAll();
     }
-    
+
+    //get a transaction by id
     public Transaction getTransactionById(Integer id) {
         return transactionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Transaction not found with id: " + id));
     }
-
-    //tong thu chi theo user
-
- }
+}

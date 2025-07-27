@@ -13,7 +13,7 @@ public class Reminder {
 
     @ManyToOne
     @JoinColumn(name = "transaction_id", nullable = false)
-    private Transaction transaction_id;
+    private Transaction transactionId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
