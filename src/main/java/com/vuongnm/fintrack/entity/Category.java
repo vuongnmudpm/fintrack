@@ -12,18 +12,26 @@ import java.time.LocalDateTime;
 @Data
 public class Category implements Serializable {
     @Id
-    private int category_id;
+    @Column(name = "category_id")
+    private int categoryId;
     private String name;
     private String type;
     private String description;
-    private String color_code;
+
+    @Column(name = "color_code")
+    private String colorCode;
     private String icon;
-    private Boolean is_default;
+
+    @Column(name = "is_default")
+    private Boolean isDefault;
+
     @Column(name = "created_at", columnDefinition = "DATETIME DEFAULT GETDATE()")
     private LocalDateTime createdAt;
-    private Date update_at;
 
-    @ManyToOne
+    @Column(name = "update_at")
+    private Date updateAt;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    private User user_id;
+    private User userId;
 }

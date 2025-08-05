@@ -14,20 +14,33 @@ public class User implements Serializable {
     private static final long serialVersionUID = -297553281792804396L;
 
     @Id
-    private int user_id;
+    @Column(name = "user_id")
+    private int userId;
     private String username;
     private String email;
-    private String password_hash;
-    private String full_name;
+
+    @Column(name = "password_hash")
+    private String passwordHash;
+
+    @Column(name = "fullName")
+    private String fullName;
     private String phone;
-    private String avatar_url;
+
+    @Column(name = "avatar_url")
+    private String avatarUrl;
     private Date dob;
     private String role;
     private String status;
-    private Boolean is_verified;
-    private Date last_login;
+
+    @Column(name = "is_verified")
+    private Boolean isVerified;
+
+    @Column(name = "last_login")
+    private Date lastLogin;
+
     @Column(name = "created_at", columnDefinition = "DATETIME DEFAULT GETDATE()")
     private LocalDateTime createdAt;
+
     @Column(name = "updated_at", columnDefinition = "DATETIME DEFAULT GETDATE()")
     private LocalDateTime updatedAt;
 }

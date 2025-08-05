@@ -13,7 +13,7 @@ public class ExportLog {
     @Column(name = "export_id")
     private Integer exportId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 

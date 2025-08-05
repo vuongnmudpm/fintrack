@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
     // Khi user truy cập vào endpoint / thì homepage() được gọi
-    @GetMapping("/")
+    @GetMapping("/home")
     public String homepage() {
         return "index";  // Trả về trang index.html
     }

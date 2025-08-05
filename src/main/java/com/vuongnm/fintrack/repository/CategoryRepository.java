@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
-    public List<Category> findByUserId(Integer userId);
-    public List<Category> findByIsSystemTrue();
-    public List<Category> findByUserIdOrIsSystemTrue();
+//    public Category findByUserId(Integer userId);
+//    public List<Category> findByIsSystemTrue();
+//    public List<Category> findByUserIdOrIsSystemTrue();
 }

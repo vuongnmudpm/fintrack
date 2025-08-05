@@ -14,53 +14,57 @@ import java.util.Optional;
 public class CategoryService {
     private final CategoryRepository categoryRepository;
 
-    //Creta new cat egory
-    public Category createCategory(Category category) {
-        Optional<Category> optionalCategories = categoryRepository.findById(category.getCategory_id());
-        if (optionalCategories.isEmpty()) {
-            throw new RuntimeException("Category not found");
-        }
-        return categoryRepository.save(category);
+    public List<Category> getAll() {
+        return categoryRepository.findAll();
     }
-
-    //Get all categories (system + user)
-    public List<Category> getAllCategories() {
-        return categoryRepository.findByUserIdOrIsSystemTrue();
-    }
-
-    //Get categories by system
-    public List<Category> getSystemCategories() {
-        return categoryRepository.findByIsSystemTrue();
-    }
-
-    //Get category by user
-    public List<Category> getCategoriesByUser(Integer userId) {
-        return categoryRepository.findByUserId(userId);
-    }
-
-    //Get category by category id
-    public Category getCategoryById(Integer id) {
-        return categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Category not found with id: " + id));
-    }
-
-    //Update categories by user
-    public Category updateCategories(Integer id, Category categories, Integer userId) {
-        Category category = categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Category not exist!"));
-
-        category.setName(categories.getName());
-        category.setType(categories.getType());
-        category.setUpdate_at(categories.getUpdate_at());
-        return categoryRepository.save(category);
-    }
-
-    //Delete categories by user
-    public boolean deleteCategory(Integer id, Integer userId) {
-        Category category = categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Category not exist"));
-        categoryRepository.deleteById(id);
-        if (categoryRepository.findById(id).isEmpty()) {
-            throw new EntityNotFoundException("Category not exist!");
-        }
-        categoryRepository.deleteById(id);
-        return false;
-    }
+//
+//    //Creta new cat egory
+//    public Category createCategory(Category category) {
+//        Optional<Category> optionalCategories = categoryRepository.findById(category.getCategoryId());
+//        if (optionalCategories.isEmpty()) {
+//            throw new RuntimeException("Category not found");
+//        }
+//        return categoryRepository.save(category);
+//    }
+//
+//    //Get all categories (system + user)
+////    public List<Category> getAllCategories() {
+////        return categoryRepository.findByUserIdOrIsSystemTrue();
+////    }
+//
+//    //Get categories by system
+////    public List<Category> getSystemCategories() {
+////        return categoryRepository.findByIsSystemTrue();
+////    }
+//
+//    //Get category by user
+////    public Category getCategoriesByUser(Integer userId) {
+////        return categoryRepository.findByUserId(userId);
+////    }
+//
+//    //Get category by category id
+//    public Category getCategoryById(Integer id) {
+//        return categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Category not found with id: " + id));
+//    }
+//
+//    //Update categories by user
+//    public Category updateCategories(Integer id, Category categories, Integer userId) {
+//        Category category = categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Category not exist!"));
+//
+//        category.setName(categories.getName());
+//        category.setType(categories.getType());
+//        category.setUpdateAt(categories.getUpdateAt());
+//        return categoryRepository.save(category);
+//    }
+//
+//    //Delete categories by user
+//    public boolean deleteCategory(Integer id, Integer userId) {
+//        Category category = categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Category not exist"));
+//        categoryRepository.deleteById(id);
+//        if (categoryRepository.findById(id).isEmpty()) {
+//            throw new EntityNotFoundException("Category not exist!");
+//        }
+//        categoryRepository.deleteById(id);
+//        return false;
+//    }
 }
