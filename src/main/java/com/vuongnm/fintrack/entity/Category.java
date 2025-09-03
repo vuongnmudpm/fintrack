@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Data
 public class Category implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
     private int categoryId;
     private String name;

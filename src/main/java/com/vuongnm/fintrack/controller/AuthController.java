@@ -7,15 +7,22 @@ import com.vuongnm.fintrack.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
+    @GetMapping("/public/hello")
+    public String publicHello() {
+        return "Hello, ai cũng truy cập được!";
+    }
+
+    @GetMapping("/private/hello")
+    public String privateHello() {
+        return "Hello, chỉ user đã login mới thấy!";
+    }
+
 //    private final UserService userService;
 //
 //    @PostMapping("/register")

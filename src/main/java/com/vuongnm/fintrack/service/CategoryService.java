@@ -1,6 +1,7 @@
 package com.vuongnm.fintrack.service;
 
 import com.vuongnm.fintrack.entity.Category;
+import com.vuongnm.fintrack.exception.CategoryAlreadyExistException;
 import com.vuongnm.fintrack.repository.CategoryRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -17,15 +18,17 @@ public class CategoryService {
     public List<Category> getAll() {
         return categoryRepository.findAll();
     }
-//
-//    //Creta new cat egory
-//    public Category createCategory(Category category) {
-//        Optional<Category> optionalCategories = categoryRepository.findById(category.getCategoryId());
-//        if (optionalCategories.isEmpty()) {
-//            throw new RuntimeException("Category not found");
-//        }
-//        return categoryRepository.save(category);
-//    }
+
+
+    //Creta new category
+    public Category createCategory(Category category) {
+        Category categoryCheck = categoryRepository.findByName(category.getName());
+        if (categoryCheck != null) {
+            throw new CategoryAlreadyExistException("Category with name '" + category.getName() + "' already exists.");
+        }
+        return categoryRepository.save(category);
+    }
+
 //
 //    //Get all categories (system + user)
 ////    public List<Category> getAllCategories() {
@@ -42,29 +45,28 @@ public class CategoryService {
 ////        return categoryRepository.findByUserId(userId);
 ////    }
 //
-//    //Get category by category id
-//    public Category getCategoryById(Integer id) {
-//        return categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Category not found with id: " + id));
-//    }
+    //Get category by category id
+    public Category getCategoryById(Integer id) {
+        return categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Category not found with id: " + id));
+    }
 //
 //    //Update categories by user
-//    public Category updateCategories(Integer id, Category categories, Integer userId) {
-//        Category category = categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Category not exist!"));
-//
-//        category.setName(categories.getName());
-//        category.setType(categories.getType());
-//        category.setUpdateAt(categories.getUpdateAt());
-//        return categoryRepository.save(category);
-//    }
-//
-//    //Delete categories by user
-//    public boolean deleteCategory(Integer id, Integer userId) {
-//        Category category = categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Category not exist"));
-//        categoryRepository.deleteById(id);
-//        if (categoryRepository.findById(id).isEmpty()) {
-//            throw new EntityNotFoundException("Category not exist!");
-//        }
-//        categoryRepository.deleteById(id);
-//        return false;
-//    }
+    public Category updateCategories(Integer id, Category categories, Integer userId) {
+        Category category = categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Category not exist!"));
+
+        category.setName(categories.getName());
+        category.setType(categories.getType());
+        category.setUpdateAt(categories.getUpdateAt());
+        return categoryRepository.save(category);
+    }
+
+    //Delete categories by user
+    public boolean deleteCategory(Integer id) {
+        if (categoryRepository.existsById(id)) {
+            categoryRepository.deleteById(id);
+            return true; // xoá thành công
+        } else {
+            return false; // không tồn tại
+        }
+    }
 }
