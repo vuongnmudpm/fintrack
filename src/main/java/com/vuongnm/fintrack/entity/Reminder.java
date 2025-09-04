@@ -1,11 +1,13 @@
 package com.vuongnm.fintrack.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "reminders")
+@Data
 public class Reminder {
     @Id
     @Column(name = "reminder_id")

@@ -13,27 +13,28 @@ import java.util.List;
 @RequestMapping("/reminders")
 @RequiredArgsConstructor
 public class ReminderController {
-//    private final ReminderService reminderService;
-//
-//    //Get all reminders
-//    public ResponseEntity<List<Reminder>> getAllReminders() {
-//        List<Reminder> reminders = reminderService.getAllReminders();
-//        return ResponseEntity.ok(reminders);
-//    }
-//
-//    //Get a reminder by id
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Reminder> getReminderById(@PathVariable Integer reminderId) {
-//        Reminder reminder = reminderService.getReminderById(reminderId);
-//        return ResponseEntity.ok(reminder);
-//    }
-//
-//    //Create a new reminder
-//    @PostMapping
-//    public ResponseEntity<Reminder> createReminder(@RequestBody Reminder reminder) {
-//        Reminder created = reminderService.createReminder(reminder);
-//        return new ResponseEntity<>(created, HttpStatus.CREATED);
-//    }
+    private final ReminderService reminderService;
+
+    //Get all reminders
+    @GetMapping("/get-all")
+    public ResponseEntity<List<Reminder>> getAllReminders() {
+        List<Reminder> reminders = reminderService.getAllReminders();
+        return ResponseEntity.ok(reminders);
+    }
+
+    //Get a reminder by id
+    @GetMapping("/{reminderId}")
+    public ResponseEntity<Reminder> getReminderById(@PathVariable Integer reminderId) {
+        Reminder reminder = reminderService.getReminderById(reminderId);
+        return ResponseEntity.ok(reminder);
+    }
+
+    //Create a new reminder
+    @PostMapping("/create")
+    public ResponseEntity<Reminder> createReminder(@RequestBody Reminder reminder) {
+        Reminder created = reminderService.createReminder(reminder);
+        return new ResponseEntity<>(created, HttpStatus.CREATED);
+    }
 //
 //    //Update a reminder
 //    @PutMapping("/{id}")
